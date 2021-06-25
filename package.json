@@ -16,6 +16,9 @@
   },
   "license": "MIT",
   "author": "zphua2016@gmail.com",
+  "bin": {
+    "automatic": "bin/index.js"
+  },
   "workspaces": [
     "packages/*"
   ],
@@ -23,6 +26,9 @@
     "jsqpro": "yarn workspace jsqpro run build",
     "build": "yarn workspaces run build",
     "sort": "sort-package-json package.json"
+  },
+  "dependencies": {
+    "sort-package-json": "^1.50.0"
   },
   "publishConfig": {
     "access": "public"

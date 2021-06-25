@@ -5,13 +5,8 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 
 puppeteer.use(StealthPlugin())
 
-async function getSignBtn(page) {
-  return await page.$('.i-button.button-check')
-}
-
 async function assertLogin(page) {
   console.log(`>>> 判断是否已经登录.`)
-  // return getSignBtn(page)
   const usernameHandle = await page.$('.user .info span')
   return page.evaluate((usernameEle) => {
     return usernameEle != null && usernameEle.innerText.trim() === jsqpro.username
@@ -32,13 +27,14 @@ async function inputAccount(page) {
   await page.type('#passwd', jsqpro.password)
   await page.click('#login')
   await page.waitForTimeout(2000)
+
   console.log(`>>> 跳转到首页.`)
   await page.click('.confirm')
 }
 
 async function signIn(page) {
   // await page.waitForTimeout(3000)
-  const signHandle = await getSignBtn(page)
+  const signHandle = await page.click('.i-button.button-check')
   const signInTxt = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, signHandle)
@@ -46,7 +42,7 @@ async function signIn(page) {
     console.log(`>>> 已经签到了.`)
     return await getPreSignInTime(page)
   }
-  signHandle.click()
+  await signHandle.click()
   console.log(`>>> 签到成功.`)
   await page.waitForTimeout(2000)
   return await getPreSignInTime(page)
@@ -54,25 +50,49 @@ async function signIn(page) {
 
 async function getPreSignInTime(page) {
   const preTxtHandle = await page.$('.tag.is-info')
-  const preTxt = await page.evaluate((ele) => {
+  const preTime = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, preTxtHandle)
-  return preTxt
+  return preTime || ''
 }
 
 async function getInviteAddress(page) {
   console.log(`>>> 跳转到推广返利.`)
   await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
   await page.waitForTimeout(2000)
+
+  // 没有使用重置链接不会变
+  console.log(`>>> 重置邀请链接.`)
   const linkHandle = await page.$('#aff_link')
+  const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
+  await page.click('#resetiv')
   const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle)
-  console.log('>>> 邀请链接:', inviteAddress)
+
+  console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
+  return inviteAddress
 }
 
 async function signInAndGetUrl(page) {
-  const preTxt = await signIn(page)
-  await getInviteAddress(page)
-  return preTxt
+  const preTime = await signIn(page)
+  const inviteAddress = await getInviteAddress(page)
+  return { preTime: preTime.trim(), inviteAddress }
+}
+
+async function updateInviteAddress(page) {
+  const preTime = await signIn(page)
+
+  console.log(`>>> 跳转到推广返利.`)
+  await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
+  await page.waitForTimeout(2000)
+
+  console.log(`>>> 重置邀请链接.`)
+  const linkHandle = await page.$('#aff_link')
+  const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
+  await page.click('#resetiv')
+  const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle)
+
+  console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
+  return { preTime: preTime.trim(), inviteAddress }
 }
 
 async function createBrowser() {
@@ -107,18 +127,18 @@ async function createNewPage(browser) {
   return page
 }
 
-async function run(cb) {
+async function run(cb, isUpdateInviteAddress) {
   const browser = await createBrowser()
   try {
-    cb(browser, jsqpro.url)
+    return cb(browser, jsqpro.url, isUpdateInviteAddress)
   } catch (error) {
     browser.close()
+    console.log(`<<< error!`)
     throw error
   }
 }
 
 module.exports = {
-  getSignBtn,
   assertLogin,
   getCookies,
   inputAccount,
@@ -127,5 +147,6 @@ module.exports = {
   createBrowser,
   createNewPage,
   signInAndGetUrl,
+  updateInviteAddress,
   run,
 }

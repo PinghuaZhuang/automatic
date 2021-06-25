@@ -18,6 +18,7 @@
   "author": "zphua2016@gmail.com",
   "scripts": {
     "build": "node ./index.js",
+    "update": "node ./src/updateInviteAddress",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {
