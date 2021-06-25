@@ -15,8 +15,9 @@
     "url": "git+https://github.com/PinghuaZhuang/automatic.git"
   },
   "license": "MIT",
-  "author": "zphua2016@gmail.com",  "scripts": {
-    "build": "node ./src/jsqpro.js",
+  "author": "zphua2016@gmail.com",
+  "scripts": {
+    "build": "node ./index.js",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {

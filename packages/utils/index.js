@@ -1,6 +1,6 @@
 const path = require('path')
 
-export async function run(cb, error) {
+async function run(cb, error) {
   try {
     cb()
   } catch (e) {
@@ -9,10 +9,16 @@ export async function run(cb, error) {
   }
 }
 
-export function sleep(delay) {
+function sleep(delay) {
   return new Promise(resolve => setTimeout(resolve, delay * 1000))
 }
 
-export function resolve(url) {
+function resolve(url) {
   return path.resolve(__dirname, url)
+}
+
+module.exports = {
+  run,
+  sleep,
+  resolve,
 }

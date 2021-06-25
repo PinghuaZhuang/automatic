@@ -1,34 +1,43 @@
 const { exec } = require('child_process')
 
-export async function logHtml() {
+async function logHtml() {
   const htmlHandle = await page.$('html')
   const html = await page.evaluate(html => html.innerHTML, htmlHandle);
   await htmlHandle.dispose()
   console.log('html-content:', html)
 }
 
-export async function getCookies(page) {
+async function getCookies(page) {
   const cookies = await page.cookies()
   console.log('>>> cookies', cookies.map(o => o.name))
+  return cookies
 }
 
-export function killChrome() {
+function killChrome() {
   console.log(`>>> kill all chrome's process.`)
   exec('taskkill /f /im chrome.exe')
 }
 
-export function openChrome(params) {
+function openChrome() {
   console.log(`>>> open new chrome process.`)
   // exec(`start chrome.exe --remote-debugging-port=9222`)
   // exec('start chrome.exe "--remote-debugging-port=9222" "--no-referrers" "--disable-extensions" "--disable-features=SameSiteByDefaultCookies"')
   exec('start ./node_modules/puppeteer/.local-chromium/win64-884014/chrome-win/chrome.exe "--remote-debugging-port=9222" "--disable-extensions" "--disable-features=SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure,OutOfBlinkCors"')
 }
 
-export async function exit(message, browser) {
+async function exit(message, browser) {
   console.log(`>>> exit.`, message)
   if (typeof browser === 'object') {
     await browser.close()
     // return exec('exit')
   }
   // process.exit(message || -1)
+}
+
+module.exports = {
+  logHtml,
+  getCookies,
+  killChrome,
+  openChrome,
+  exit,
 }

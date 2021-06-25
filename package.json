@@ -20,7 +20,7 @@
     "packages/*"
   ],
   "scripts": {
-    "jsqpro": "node ./src/jsqpro.js",
+    "jsqpro": "yarn workspace jsqpro run build",
     "build": "yarn workspaces run build",
     "sort": "sort-package-json package.json"
   },

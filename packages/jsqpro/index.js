@@ -1,24 +1,22 @@
-import run from './src/core'
-import { exit } from 'utils/puppeteer'
-import {
+const { exit } = require('utils/puppeteer')
+const {
   createNewPage,
   assertLogin,
-  sign,
-  getSignBtn,
+  signIn,
   getCookies,
   inputAccount,
-  getInviteAddress,
-} from './src/core'
+  signInAndGetUrl,
+  run,
+} = require('./src/core')
 
-run(async (browser) => {
-  const page = createNewPage(browser)
+run(async (browser, url) => {
+  const page = await createNewPage(browser)
+  let preTxt = ''
 
-  await page.goto(jsqpro.url)
+  await page.goto(url)
 
-  const signBtn = await assertLogin(page)
-
-  if (signBtn) {
-    await sign(page, signBtn)
+  if (await assertLogin(page)) {
+    preTxt = await signInAndGetUrl(page)
     return exit(`已经登录!`)
   }
 
@@ -27,10 +25,8 @@ run(async (browser) => {
 
   await inputAccount(page)
   await page.waitForTimeout(2000)
-  await sign(page, signBtn)
-
-  await getInviteAddress(page)
+  preTxt = await signInAndGetUrl(page)
 
   await page.waitForTimeout(2000)
-  await exit(browser)
+  await exit('done. ', browser)
 })
