@@ -17,4 +17,4 @@ jobs:
         JSQPRO_EMAIL: ${{ secrets.JSQPRO_EMAIL }}
         JSQPRO_PASSWORD: ${{ secrets.JSQPRO_PASSWORD }}
     - run: npm install
-    - run: npm run jsqpro
+    - run: npm run build
