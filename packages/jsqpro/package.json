@@ -1,5 +1,5 @@
 {
-  "name": "automatic",
+  "name": "jsqpro",
   "version": "0.0.1",
   "private": true,
   "description": "自动签到.",
@@ -15,14 +15,16 @@
     "url": "git+https://github.com/PinghuaZhuang/automatic.git"
   },
   "license": "MIT",
-  "author": "zphua2016@gmail.com",
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "jsqpro": "node ./src/jsqpro.js",
-    "build": "yarn workspaces run build",
+  "author": "zphua2016@gmail.com",  "scripts": {
+    "build": "node ./src/jsqpro.js",
     "sort": "sort-package-json package.json"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^10.0.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "publishConfig": {
     "access": "public"
