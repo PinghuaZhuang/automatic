@@ -1,4 +1,5 @@
 const { exit } = require('utils/puppeteer')
+const write = require('./write')
 const {
   createNewPage,
   assertLogin,
@@ -24,6 +25,8 @@ module.exports = async (browser, url) => {
   await inputAccount(page)
   await page.waitForTimeout(2000)
   info = await signInAndGetUrl(page)
+
+  /* await  */write(info.signInTime)
 
   await page.waitForTimeout(2000)
   await exit('done. ', browser)

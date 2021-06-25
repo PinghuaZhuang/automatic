@@ -17,7 +17,7 @@
   "license": "MIT",
   "author": "zphua2016@gmail.com",
   "scripts": {
-    "build": "",
+    "build": "echo 1",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {

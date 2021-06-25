@@ -50,10 +50,11 @@ async function signIn(page) {
 
 async function getPreSignInTime(page) {
   const preTxtHandle = await page.$('.tag.is-info')
-  const preTime = await page.evaluate((ele) => {
+  const signInTime = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, preTxtHandle)
-  return preTime || ''
+  console.log(`>>> 签到时间:`, signInTime)
+  return signInTime || ''
 }
 
 async function getInviteAddress(page) {
@@ -73,13 +74,13 @@ async function getInviteAddress(page) {
 }
 
 async function signInAndGetUrl(page) {
-  const preTime = await signIn(page)
+  const signInTime = await signIn(page)
   const inviteAddress = await getInviteAddress(page)
-  return { preTime: preTime.trim(), inviteAddress }
+  return { signInTime: signInTime.trim(), inviteAddress }
 }
 
 async function updateInviteAddress(page) {
-  const preTime = await signIn(page)
+  const signInTime = await signIn(page)
 
   console.log(`>>> 跳转到推广返利.`)
   await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
@@ -92,7 +93,7 @@ async function updateInviteAddress(page) {
   const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle)
 
   console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
-  return { preTime: preTime.trim(), inviteAddress }
+  return { signInTime: signInTime.trim(), inviteAddress }
 }
 
 async function createBrowser() {

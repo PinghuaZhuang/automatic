@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 const Editor = {
   regs: {
     // /\<\!--\s*@protocol:(?<section>.*):start\s*--\>(?<content>[\s\S]*?)\<\!--\s*@protocol:\k<section>:end\s*--\>/g
@@ -32,10 +34,27 @@ const Editor = {
     }
     return target
   },
-  txt() {
-    return `| {11} | {12} | {13} | {14} | {15} | {16} | {17} |
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| {21} | {22} | {23} | {24} | {25} | {26} | {27} |`
+  signInTxt() {
+    return `\n<!-- checked: -->\n\n| {11}(日) | {12}(一) | {13}(二) | {14}(三) | {15}(四) | {16}(五) | {17}(六) |
+| -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- |
+|                |                |                |                |                |                |                |\n\n`
+  },
+  replaceWeek(content, count = 1) {
+    if (count > 7) return content
+    return this.replaceWeek(
+      content.replace(`{1${count}}`, moment().weekday(count - 1).format(moment.HTML5_FMT.DATE)),
+      count + 1
+    )
+  },
+  replaceCheck(content, val) {
+    const no = this.subDays(moment(val), moment().weekday(0)) + 1
+    const reg = new RegExp(`--------\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
+    return content
+      .replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:$1${val}; -->`)
+      .replace(reg, `-------- \|\n$1| 📌             `)
+  },
+  subDays(a, b) {
+    return Math.floor((a - b) / (1000 * 60 * 60 * 24))
   },
 }
 

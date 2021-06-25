@@ -3,7 +3,6 @@ const { run } = require('./src/core')
 const check = require('./src/check')
 
 (function job() {
-  const { preTime, inviteAddress } = run(check)
-  // TODO: 更新这些信息到 README.md
+  /* const { signInTime, inviteAddress } =  */run(check)
   lt.setTimeout(job, 1000 * 60 * 60 * 23.8)
 })()
