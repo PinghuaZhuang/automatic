@@ -99,7 +99,7 @@ async function updateInviteAddress(page) {
 async function createBrowser() {
   console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
-    headless: false,
+    // headless: false,
     args: [
       // ...['--no-sandbox', '--disable-setuid-sandbox']
       // '--headless',
