@@ -24,9 +24,9 @@ const transporter = nodemailer.createTransport({
 
 async function sendDD(content) {
   const raw = JSON.stringify({
-    'msgtyp': 'markdown',
+    'msgtype': 'markdown',
     'markdown': {
-      'titit': 'jsqpro 自动签到结果',
+      'title': 'notify: 自动签到结果',
       'text': content,
       'at': [
         '13602629903'
