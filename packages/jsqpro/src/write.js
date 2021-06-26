@@ -5,11 +5,13 @@ const { sleep } = require('utils')
 
 module.exports = async function job(signInTime = '') {
   console.log(`>>> 更新 README.md.`)
-  const filePath = path.resolve(__dirname, '../../../README.md')
-  const options = {
-    encoding: 'utf8',
+  const errorCallback = function (error) {
+    if (error) {
+      throw error
+    }
   }
-  const content = await fs.readFileSync(filePath, options)
+  const filePath = path.resolve(__dirname, '../../../README.md')
+  const content = await fs.readFile(filePath, 'utf8', errorCallback)
   const { jsqpro } = Editor.structureObj(content)
 
   if (jsqpro) {
@@ -25,7 +27,7 @@ module.exports = async function job(signInTime = '') {
       })
     }
     console.log(`>>> check table:`, jsqpro.content)
-    await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
+    await fs.writeFile(filePath, Editor.replaceSection(content, jsqpro), 'utf8', errorCallback)
     sleep(3)
   }
 }

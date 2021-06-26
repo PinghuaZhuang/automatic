@@ -19,7 +19,7 @@ module.exports = async (browser, url) => {
     return exit(`已经登录!`)
   }
 
-  await page.waitForTimeout(8000)
+  await page.waitForTimeout(10000)
   await getCookies(page)
 
   await inputAccount(page)
