@@ -50,8 +50,7 @@ const Editor = {
     const no = this.subDays(moment(val), moment().weekday(0)) + 1
     const reg = new RegExp(`--------\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
     return content
-      .replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:$1${val}; -->`)
-      .replace(reg, `-------- \|\n$1| 📌             `)
+      .replace(reg, `-------- \|\n$1|       🟢       `)
   },
   subDays(a, b) {
     return Math.floor((a - b) / (1000 * 60 * 60 * 24))
