@@ -17,7 +17,7 @@ module.exports = async function job(signInTime = '') {
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
       times = times.groups.times.replace(/;$/, '')
-      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])]
+      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])].filter(o => moment(o).format() === 'Invalid date')
       console.log(`>>> times:`, times)
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
       times.forEach(time => {
@@ -28,4 +28,3 @@ module.exports = async function job(signInTime = '') {
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
   }
 }
-// job()
