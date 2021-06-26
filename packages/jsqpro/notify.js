@@ -27,7 +27,7 @@ async function sendDD(content, times) {
     'msgtype': 'markdown',
     'markdown': {
       'title': 'jsqpro 自动签到结果',
-      'text': `${times.groups.times}\n${content}`,
+      'text': `${times.groups.times}\n---\n${content}`,
       'at': [
         '13602629903'
       ]
