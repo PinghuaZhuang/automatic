@@ -3,9 +3,11 @@ const { run } = require('./src/core')
 const check = require('./src/check')
 const moment = require('moment')
 
-function job() {
-  const { signInTime } = run(check)
-  lt.setTimeout(job, moment(signInTime).add(1, 'days') - moment())
+async function job() {
+  const { signInTime } = await run(check)
+  const delay = moment(signInTime).add(1, 'days') - moment() - 1000 * 60 * 30
+  console.log(`>>> delay:`, delay)
+  lt.setTimeout(job, delay > 0 ? delay : 0)
 }
 
 job()

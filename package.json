@@ -26,7 +26,7 @@
     "jsqpro": "yarn workspace jsqpro run build",
     "build": "yarn workspaces run build",
     "notify:jsqpro": "yarn workspace jsqpro run notify",
-    "start": "./bin/jsqpro.bat",
+    "start": "pm2 start ./processes.json",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {

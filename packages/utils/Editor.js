@@ -46,11 +46,11 @@ const Editor = {
       count + 1
     )
   },
-  replaceCheck(content, val) {
+  replaceCheck(content, val, isError) {
     const no = this.subDays(moment(val), moment().weekday(0)) + 1
     const reg = new RegExp(`--:\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
     return content
-      .replace(reg, `--: \|\n$1|    🟢     `)
+      .replace(reg, `--: \|\n$1|    ${isError ? '🔴' : '🟢'}     `)
   },
   subDays(a, b) {
     return Math.floor((a - b) / (1000 * 60 * 60 * 24))

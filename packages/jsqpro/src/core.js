@@ -4,6 +4,8 @@ const jsqpro = require('./var')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const { execFile } = require('child_process')
 const path = require('path')
+const write = require('./write')
+const { sendDD } = require('utils')
 
 puppeteer.use(StealthPlugin())
 
@@ -67,9 +69,12 @@ async function getInviteAddress(page) {
   // 没有使用重置链接不会变
   console.log(`>>> 重置邀请链接.`)
   const linkHandle = await page.$('#aff_link')
+  // 刷新页面
   const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
   await page.click('#resetiv')
-  const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle)
+  await page.waitForTimeout(3000)
+  const linkHandle2 = await page.$('#aff_link')
+  const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle2)
 
   console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
   return inviteAddress
@@ -143,13 +148,16 @@ async function commit() {
 
 async function run(cb, isUpdateInviteAddress) {
   const browser = await createBrowser()
-  try {
-    return cb(browser, jsqpro.url, isUpdateInviteAddress)
-  } catch (error) {
-    browser.close()
-    console.log(`<<< error!`)
-    throw error
+  const errorHandle = async function (error) {
+    console.log(`<<< error!`, error)
+    await browser.close()
+    await write('-1', '-1')
+    await sendDD(process.env.TOKEN, `jsqpro error: ${error}`)
+    process.exit(error)
   }
+  process.on('unhandledRejection', errorHandle)
+  process.on('uncaughtException', errorHandle)
+  return cb(browser, jsqpro.url, isUpdateInviteAddress)
 }
 
 module.exports = {

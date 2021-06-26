@@ -1,13 +1,5 @@
 const path = require('path')
-
-async function run(cb, error) {
-  try {
-    cb()
-  } catch (e) {
-    error(e)
-    throw e
-  }
-}
+const fetch = require('node-fetch')
 
 function sleep(delay) {
   return new Promise(resolve => setTimeout(resolve, delay * 1000))
@@ -17,8 +9,34 @@ function resolve(url) {
   return path.resolve(__dirname, url)
 }
 
+async function sendDD(token, content, times = { groups: { times: '' } }) {
+  console.log('>>> 发送钉钉消息.')
+  const raw = JSON.stringify({
+    'msgtype': 'markdown',
+    'markdown': {
+      'title': 'jsqpro 自动签到结果',
+      'text': `${times.groups.times}\n\n${content}`,
+      'at': [
+        '13602629903'
+      ]
+    }
+  })
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: raw,
+    redirect: 'follow'
+  }
+  await fetch(`https://oapi.dingtalk.com/robot/send?access_token=${token}`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(`>>> 发送消息成功.`, result))
+    .catch(error => console.log('<<< 发送消息失败.', error))
+}
+
 module.exports = {
-  run,
   sleep,
   resolve,
+  sendDD,
 }

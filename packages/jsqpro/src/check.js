@@ -24,7 +24,7 @@ module.exports = async (browser, url) => {
   await getCookies(page)
 
   await inputAccount(page)
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(4000)
   info = await signInAndGetUrl(page)
 
   await write(info.signInTime, info.inviteAddress)

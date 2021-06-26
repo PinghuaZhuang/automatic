@@ -12,13 +12,24 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
   let content = await fs.readFileSync(filePath, options)
   const { jsqpro } = Editor.structureObj(content)
 
+  if (signInTime === '-1') {
+    console.log(`<<< 签到失败!`)
+    jsqpro.content = Editor.replaceCheck(jsqpro.content, moment().format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS), true)
+    console.log(`>>> check table:`, jsqpro.content)
+    return
+  }
+
   if (jsqpro) {
     let times = /\<\!-- checked:(?<times>[^\s]*) --\>/.exec(content)
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
-      times = times.groups.times.replace(/;$/, '')
-      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])].filter(o => moment(o).format() !== 'Invalid date')
-
+      // 每月1日重置
+      if (moment().date(1).format(moment.HTML5_FMT.DATE) === moment().format(moment.HTML5_FMT.DATE)) {
+        times = []
+      } else {
+        times = times.groups.times.replace(/;$/, '').split(';')
+      }
+      times = [...new Set([...times, moment(signInTime).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS)])].filter(o => moment(o).format() !== 'Invalid date')
       console.log(`>>> times:`, times)
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
       times.forEach(time => {

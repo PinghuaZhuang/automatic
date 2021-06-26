@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "jsqpro",
+      "script": "packages/jsqpro/schedule.js",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "max_restarts": 1,
+      "watch": false,
+      "merge_logs": true,
+      "autorestart": true,
+      "restart_delay": 60,
+      "env": {
+        "TOKEN": "aa82b7edefc02392e4d078725a4837f1560d6b66eb80ce18b0fc158e89ce54eb"
+      }
+    }
+  ]
+}

@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
 const marked = require('marked')
-const fetch = require('node-fetch')
+const { sendDD } = require('utils')
 
 const args = {}
 process.argv.slice(2).forEach(k => {
@@ -22,31 +22,6 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-async function sendDD(content, times) {
-  const raw = JSON.stringify({
-    'msgtype': 'markdown',
-    'markdown': {
-      'title': 'jsqpro 自动签到结果',
-      'text': `${times.groups.times}\n\n${content}`,
-      'at': [
-        '13602629903'
-      ]
-    }
-  })
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: raw,
-    redirect: 'follow'
-  }
-  await fetch(`https://oapi.dingtalk.com/robot/send?access_token=${args.dd}`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(`>>> 发送钉钉机器人成功.`, result))
-    .catch(error => console.log('<<< 发送钉钉机器人失败.', error))
-}
-
 async function sendEmail() {
   const filePath = path.resolve(__dirname, '../../README.md')
   const options = {
@@ -64,7 +39,7 @@ async function sendEmail() {
     html: marked(`${times.groups.times}\n\n${jsqpro.content}`),
   }
 
-  sendDD(jsqpro.content, times)
+  sendDD(args.dd, jsqpro.content, times)
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
