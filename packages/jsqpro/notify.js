@@ -4,6 +4,12 @@ const path = require('path')
 const Editor = require('utils/Editor')
 const marked = require('marked')
 
+const args = {}
+process.argv.slice(2).forEach(k => {
+  const t = k.split('=')
+  args[t[0].replace(/-/g, '')] = t[1]
+})
+
 const transporter = nodemailer.createTransport({
   service: 'qq', // 使用内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
   port: 465, // SMTP 端口
@@ -11,7 +17,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: '995382997@qq.com',
     // 这里密码不是qq密码，是你设置的smtp授权码
-    pass: process.env.JSQPRO_EMAIL_PASS,
+    pass: args.pass,
   },
 })
 
@@ -33,7 +39,7 @@ async function sendEmail() {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log('<<< 发送失败！邮箱是否正确');
+      console.log('<<< 发送失败！邮箱是否正确', error);
     } else {
       console.log('>>> 发送成功! ', info);
     }
