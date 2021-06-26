@@ -27,7 +27,7 @@ async function sendDD(content, times) {
     'msgtype': 'markdown',
     'markdown': {
       'title': 'jsqpro 自动签到结果',
-      'text': `${times.groups.times}\n---\n${content}`,
+      'text': `${times.groups.times}\n\n${content}`,
       'at': [
         '13602629903'
       ]
@@ -61,7 +61,7 @@ async function sendEmail() {
     to: 'zphua2016@gmail.com', // 接收邮箱
     subject: 'jsqpro 自动签到结果', // 标题
     //text: 'Hello world?', // text html二者选一
-    html: marked(jsqpro.content),
+    html: marked(`${times.groups.times}\n\n${jsqpro.content}`),
   }
 
   sendDD(jsqpro.content, times)
