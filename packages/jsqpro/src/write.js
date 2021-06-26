@@ -3,7 +3,7 @@ const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
 
-module.exports = async function job(signInTime = '') {
+module.exports = async function job(signInTime = '2021-06-26') {
   console.log(`>>> 更新 README.md.`)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
@@ -17,7 +17,7 @@ module.exports = async function job(signInTime = '') {
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
       times = times.groups.times.replace(/;$/, '')
-      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])].filter(o => moment(o).format() === 'Invalid date')
+      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])].filter(o => moment(o).format() !== 'Invalid date')
       console.log(`>>> times:`, times)
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
       times.forEach(time => {
@@ -28,3 +28,4 @@ module.exports = async function job(signInTime = '') {
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
   }
 }
+// job()
