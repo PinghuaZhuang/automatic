@@ -2,7 +2,7 @@ name: jsqpro notify
 on: push
 jobs:
   notify:
-    name: Send email
+    name: Send message
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

@@ -22,7 +22,17 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-async function sendDD() {
+async function sendDD(content) {
+  const raw = JSON.stringify({
+    'msgtyp': 'markdown',
+    'markdown': {
+      'titit': 'jsqpro 自动签到结果',
+      'text': content,
+      'at': [
+        '13602629903'
+      ]
+    }
+  })
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -53,6 +63,8 @@ async function sendEmail() {
     html: marked(jsqpro.content),
   }
 
+  sendDD(jsqpro.content)
+
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log('<<< 发送失败！邮箱是否正确', error);
@@ -62,5 +74,4 @@ async function sendEmail() {
   })
 }
 
-sendDD()
 sendEmail()
