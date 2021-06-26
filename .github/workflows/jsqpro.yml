@@ -1,10 +1,11 @@
 name: jsqpro notify
-on: workflow_dispatch
+on: push
 jobs:
   notify:
     name: Send email
     runs-on: windows-latest
     steps:
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
