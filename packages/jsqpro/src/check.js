@@ -33,7 +33,7 @@ module.exports = async (browser, url) => {
     if (error) {
       throw error
     }
-    console.log('xxxxxxxxxxx')
+    console.log('>>> 提交代码.')
   })
 
   await page.waitForTimeout(2000)
