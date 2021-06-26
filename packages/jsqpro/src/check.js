@@ -29,7 +29,9 @@ module.exports = async (browser, url) => {
   info = await signInAndGetUrl(page)
 
   await write(info.signInTime)
-  await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), function (error) {
+  await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), '', {
+    windowsHide: true,
+  }, function (error) {
     if (error) {
       throw error
     }

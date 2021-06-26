@@ -25,6 +25,7 @@
   "scripts": {
     "jsqpro": "yarn workspace jsqpro run build",
     "build": "yarn workspaces run build",
+    "start": "./bin/jsqpro.bat",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {
