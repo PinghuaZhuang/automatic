@@ -36,13 +36,13 @@ const Editor = {
   },
   signInTxt() {
     return `\n<!-- checked: -->\n\n| {11}(日) | {12}(一) | {13}(二) | {14}(三) | {15}(四) | {16}(五) | {17}(六) |
-| -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- |
-|                |                |                |                |                |                |                |\n\n`
+| :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
+|           |           |           |           |           |           |           |\n\n`
   },
   replaceWeek(content, count = 1) {
     if (count > 7) return content
     return this.replaceWeek(
-      content.replace(`{1${count}}`, moment().weekday(count - 1).format(moment.HTML5_FMT.DATE)),
+      content.replace(`{1${count}}`, moment().weekday(count - 1).format('MM-DD')),
       count + 1
     )
   },
@@ -50,7 +50,7 @@ const Editor = {
     const no = this.subDays(moment(val), moment().weekday(0)) + 1
     const reg = new RegExp(`--------\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
     return content
-      .replace(reg, `-------- \|\n$1|       🟢       `)
+      .replace(reg, `-------- \|\n$1|    🟢     `)
   },
   subDays(a, b) {
     return Math.floor((a - b) / (1000 * 60 * 60 * 24))
