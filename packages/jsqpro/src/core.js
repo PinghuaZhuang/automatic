@@ -26,7 +26,7 @@ async function inputAccount(page) {
   await page.type('#email', jsqpro.email)
   await page.type('#passwd', jsqpro.password)
   await page.click('#login')
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(3000)
 
   console.log(`>>> 跳转到首页.`)
   await page.click('.confirm')

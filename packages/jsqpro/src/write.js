@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
-// const { exec } = require('child_process')
+const { sleep } = require('utils')
 
-module.exports = async function job(signInTime = '2021-06-26') {
+module.exports = async function job(signInTime = '') {
   console.log(`>>> 更新 README.md.`)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
@@ -17,7 +17,7 @@ module.exports = async function job(signInTime = '2021-06-26') {
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
       times = times.groups.times.replace(/;$/, '')
-      times = [...new Set([...times.split(';'), signInTime])]
+      times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])]
       console.log(`>>> times:`, times)
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
       times.forEach(time => {
@@ -26,6 +26,7 @@ module.exports = async function job(signInTime = '2021-06-26') {
     }
     console.log(`>>> check table:`, jsqpro.content)
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
+    sleep(3)
   }
 }
 // job()
