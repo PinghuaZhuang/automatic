@@ -1,5 +1,7 @@
 const { exit } = require('utils/puppeteer')
 const write = require('./write')
+const { execFile } = require('child_process')
+const path = require('path')
 const {
   createNewPage,
   assertLogin,
@@ -27,6 +29,12 @@ module.exports = async (browser, url) => {
   info = await signInAndGetUrl(page)
 
   await write(info.signInTime)
+  await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), function (error) {
+    if (error) {
+      throw error
+    }
+    console.log('xxxxxxxxxxx')
+  })
 
   await page.waitForTimeout(2000)
   await exit('done. ', browser)

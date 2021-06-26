@@ -17,12 +17,13 @@
   "license": "MIT",
   "author": "zphua2016@gmail.com",
   "scripts": {
-    "build": "node ./index.js & ../../bin/commit",
+    "build": "node ./index.js",
     "update": "node ./src/updateInviteAddress",
     "sort": "sort-package-json package.json"
   },
   "dependencies": {
     "child_process": "^1.0.2",
+    "long-timeout": "^0.1.1",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "puppeteer": "^10.0.0",

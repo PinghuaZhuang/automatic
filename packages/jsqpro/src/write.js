@@ -18,12 +18,14 @@ module.exports = async function job(signInTime = '2021-06-26') {
     if (times) {
       times = times.groups.times.replace(/;$/, '')
       times = [...new Set([...times.split(';'), moment(signInTime).format(moment.HTML5_FMT.DATE)])].filter(o => moment(o).format() !== 'Invalid date')
+
       console.log(`>>> times:`, times)
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
       times.forEach(time => {
         jsqpro.content = Editor.replaceCheck(jsqpro.content, time)
       })
     }
+
     console.log(`>>> check table:`, jsqpro.content)
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
   }
