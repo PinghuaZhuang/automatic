@@ -3,13 +3,13 @@ const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
 
-module.exports = async function job(signInTime = '2021-06-26') {
+module.exports = async function job(signInTime = '2021-06-26', inviteAddress = 'https://registered.jsqpro.store/auth/register') {
   console.log(`>>> 更新 README.md.`)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
     encoding: 'utf8',
   }
-  const content = await fs.readFileSync(filePath, options)
+  let content = await fs.readFileSync(filePath, options)
   const { jsqpro } = Editor.structureObj(content)
 
   if (jsqpro) {
@@ -25,6 +25,12 @@ module.exports = async function job(signInTime = '2021-06-26') {
         jsqpro.content = Editor.replaceCheck(jsqpro.content, time)
       })
     }
+
+    // 邀请链接
+    content = content.replace(
+      /\[https:\/\/registered\.jsqpro\.store\/auth\/register\]\([^\s]*?\)/,
+      `[https://registered.jsqpro.store/auth/register](909000)`
+    )
 
     console.log(`>>> check table:`, jsqpro.content)
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)

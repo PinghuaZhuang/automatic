@@ -1,13 +1,12 @@
 const { exit } = require('utils/puppeteer')
 const write = require('./write')
-const { execFile } = require('child_process')
-const path = require('path')
 const {
   createNewPage,
   assertLogin,
   getCookies,
   inputAccount,
   signInAndGetUrl,
+  commit,
 } = require('./core')
 
 module.exports = async (browser, url) => {
@@ -28,15 +27,8 @@ module.exports = async (browser, url) => {
   await page.waitForTimeout(2000)
   info = await signInAndGetUrl(page)
 
-  await write(info.signInTime)
-  await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), '', {
-    windowsHide: true,
-  }, function (error) {
-    if (error) {
-      throw error
-    }
-    console.log('>>> 提交代码.')
-  })
+  await write(info.signInTime, info.inviteAddress)
+  await commit()
 
   await page.waitForTimeout(2000)
   await exit('done. ', browser)

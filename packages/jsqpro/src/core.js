@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer-extra')
 const { exit, getCookies: _getCookies } = require('utils/puppeteer')
 const jsqpro = require('./var')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+const { execFile } = require('child_process')
+const path = require('path')
 
 puppeteer.use(StealthPlugin())
 
@@ -128,6 +130,17 @@ async function createNewPage(browser) {
   return page
 }
 
+async function commit() {
+  return await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
+    windowsHide: true,
+  }, function (error) {
+    if (error) {
+      throw error
+    }
+    console.log('>>> 提交代码.')
+  })
+}
+
 async function run(cb, isUpdateInviteAddress) {
   const browser = await createBrowser()
   try {
@@ -149,5 +162,6 @@ module.exports = {
   createNewPage,
   signInAndGetUrl,
   updateInviteAddress,
+  commit,
   run,
 }
