@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
-const { exec } = require('child_process')
+// const { exec } = require('child_process')
 
-/* module.exports =  */async function job(signInTime = '2021-06-26') {
+module.exports = async function job(signInTime = '2021-06-26') {
   console.log(`>>> 更新 README.md.`)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
@@ -26,14 +26,6 @@ const { exec } = require('child_process')
     }
     console.log(`>>> check table:`, jsqpro.content)
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
-
-    // exec(`git --version`, function (e, b) {
-    //   console.log('2222', e, b)
-    // })
-    // exec(`git --version`)
-    // exec(`git add .`)
-    // exec(`git commit -m 'Check: README.md'`)
-    // exec(`git push`)
   }
 }
-job()
+// job()

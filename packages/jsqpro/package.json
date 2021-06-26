@@ -17,7 +17,7 @@
   "license": "MIT",
   "author": "zphua2016@gmail.com",
   "scripts": {
-    "build": "node ./index.js",
+    "build": "node ./index.js & ../../bin/commit",
     "update": "node ./src/updateInviteAddress",
     "sort": "sort-package-json package.json"
   },
