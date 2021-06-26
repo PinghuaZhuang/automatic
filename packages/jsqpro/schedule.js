@@ -4,7 +4,8 @@ const check = require('./src/check')
 
 function job() {
   /* const { signInTime, inviteAddress } =  */run(check)
-  lt.setTimeout(job, 1000 * 60 * 60 * 23.8)
+  lt.setTimeout(job, 1000 * 60 * 5)
+  // 60 * 23.8
 }
 
 job()
