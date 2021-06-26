@@ -1,5 +1,7 @@
 name: jsqpro notify
-on: push
+on:
+  push:
+    branches: [ master ]
 jobs:
   notify:
     name: Send message
