@@ -1,4 +1,6 @@
 #!/bin/sh
 
 git add .
-git commit -m 'check: reamde.md'
+git commit -m Check-in
+git push
+exit
