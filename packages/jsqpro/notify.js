@@ -26,7 +26,7 @@ async function sendDD(content) {
   const raw = JSON.stringify({
     'msgtype': 'markdown',
     'markdown': {
-      'title': 'notify: 自动签到结果',
+      'title': 'jsqpro 自动签到结果',
       'text': content,
       'at': [
         '13602629903'
@@ -41,7 +41,7 @@ async function sendDD(content) {
     body: raw,
     redirect: 'follow'
   }
-  await fetch('https://oapi.dingtalk.com/robot/send?access_token=de8411b704f9af18d09b2fda554a2ae370d5d816d596a9339dc925247bd69f48', requestOptions)
+  await fetch(`https://oapi.dingtalk.com/robot/send?access_token=${args.dd}`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(`>>> 发送钉钉机器人成功.`, result))
     .catch(error => console.log('<<< 发送钉钉机器人失败.', error))

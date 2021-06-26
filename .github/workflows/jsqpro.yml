@@ -10,6 +10,7 @@ jobs:
       with:
         node-version: '14'
     - run: yarn
-    - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS"
+    - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS" --dd="$JSQPRO_DD_TOKEN"
       env:
         JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}
+        JSQPRO_DD_TOKEN: ${{secrets.DD_TOKEN}}
