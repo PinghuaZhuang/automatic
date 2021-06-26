@@ -11,7 +11,14 @@ module.exports = async function job(signInTime = '') {
     }
   }
   const filePath = path.resolve(__dirname, '../../../README.md')
-  const content = await fs.readFile(filePath, 'utf8', errorCallback)
+  const content = await new Promise(resolve => {
+    fs.readFile(filePath, 'utf8', function (error) {
+      if (error) {
+        throw error
+      }
+      resolve()
+    })
+  })
   const { jsqpro } = Editor.structureObj(content)
 
   if (jsqpro) {
@@ -27,8 +34,14 @@ module.exports = async function job(signInTime = '') {
       })
     }
     console.log(`>>> check table:`, jsqpro.content)
-    await fs.writeFile(filePath, Editor.replaceSection(content, jsqpro), 'utf8', errorCallback)
-    sleep(3)
+    await new Promise(resolve => {
+      fs.writeFile(filePath, Editor.replaceSection(content, jsqpro), 'utf8', function (error) {
+        if (error) {
+          throw error
+        }
+        resolve()
+      })
+    })
   }
 }
 // job()
