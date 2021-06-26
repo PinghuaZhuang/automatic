@@ -18,6 +18,7 @@
   "author": "zphua2016@gmail.com",
   "scripts": {
     "build": "node ./index.js",
+    "notify": "node ./notify",
     "update": "node ./src/updateInviteAddress",
     "sort": "sort-package-json package.json"
   },
@@ -26,6 +27,7 @@
     "long-timeout": "^0.1.1",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
+    "nodemailer": "^6.6.2",
     "puppeteer": "^10.0.0",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.8"

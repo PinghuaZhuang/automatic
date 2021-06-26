@@ -29,7 +29,7 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
     // 邀请链接
     content = content.replace(
       /\[https:\/\/registered\.jsqpro\.store\/auth\/register\]\([^\s]*?\)/,
-      `[https://registered.jsqpro.store/auth/register](909000)`
+      `[https://registered.jsqpro.store/auth/register](${inviteAddress})`
     )
 
     console.log(`>>> check table:`, jsqpro.content)
