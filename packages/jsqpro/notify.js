@@ -22,12 +22,12 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-async function sendDD(content) {
+async function sendDD(content, times) {
   const raw = JSON.stringify({
     'msgtype': 'markdown',
     'markdown': {
       'title': 'jsqpro 自动签到结果',
-      'text': content,
+      'text': `${times}\n${content}`,
       'at': [
         '13602629903'
       ]
@@ -53,6 +53,7 @@ async function sendEmail() {
     encoding: 'utf8',
   }
   let content = await fs.readFileSync(filePath, options)
+  const times = /\<\!-- checked:(?<times>[^\s]*) --\>/.exec(content)
   const { jsqpro } = Editor.structureObj(content)
 
   const mailOptions = {
@@ -63,7 +64,7 @@ async function sendEmail() {
     html: marked(jsqpro.content),
   }
 
-  sendDD(jsqpro.content)
+  sendDD(jsqpro.content, times)
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
