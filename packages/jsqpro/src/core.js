@@ -48,7 +48,10 @@ async function signIn(page) {
   }
   await signHandle.click()
   console.log(`>>> 签到成功.`)
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(1000)
+  await page.reload({
+    waitUntil: 'networkidle2'
+  })
   return await getPreSignInTime(page)
 }
 
