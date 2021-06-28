@@ -110,6 +110,7 @@ async function updateInviteAddress(page) {
 }
 
 async function createBrowser() {
+  console.log(`===================================================================================`)
   console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
     // headless: false,
