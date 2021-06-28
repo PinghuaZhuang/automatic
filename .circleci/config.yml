@@ -1,19 +1,51 @@
 version: 2.1
-  jobs:
-    build:
-      docker:
-        - image: circleci/node:14.17
-      steps:
-        - checkout
-        - run: yarn
-        - run: yarn run build
+
+orbs:
+  puppeteer: threetreeslight/puppeteer@0.1.2
+
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:14.17
+        environment:
+          NODE_ENV: development
+
+# commands:
+#   install:
+#     description: Install puppeteer and headless chrome
+#     steps:
+#     - run:
+#         name: Install Headless Chrome dependencies
+#         command: |
+#           sudo apt-get install -yq \
+#           gconf-service libasound2 libatk1.0-0 libatk-bridge2.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+#           libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+#           libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
+#           libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
+#           fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+#     - run:
+#         name: Install puppeteer with chronium
+#         command: |
+#           npm i puppeteer
+
+jobs:
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - puppeteer/install
+      - restore_cache:
+          keys:
+            - node_modules_cache
+      - run: yarn cache clean && yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: node_modules_cache
+      - run: yarn run build
 
 workflows:
   version: 2
-    jsqpro:
-      jobs:
-        - build
-        filters:
-             branches:
-               only:
-                 - master
+  jsqpro:
+    jobs:
+      - build
