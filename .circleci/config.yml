@@ -3,10 +3,17 @@ version: 2.1
     build:
       docker:
         - image: circleci/node:14.17
-      filters:
-        branches:
-          only: master
       steps:
         - checkout
         - run: yarn
         - run: yarn run build
+
+workflows:
+  version: 2
+    jsqpro:
+      jobs:
+        - build
+        filters:
+             branches:
+               only:
+                 - master
