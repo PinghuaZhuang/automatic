@@ -75,7 +75,10 @@ async function getInviteAddress(page) {
   // 刷新页面
   const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
   await page.click('#resetiv')
-  await page.waitForTimeout(3000)
+  await page.waitForTimeout(1000)
+  await page.reload({
+    waitUntil: 'networkidle2'
+  })
   const linkHandle2 = await page.$('#aff_link')
   const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle2)
 
