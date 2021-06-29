@@ -8,7 +8,7 @@
       "watch": false,
       "merge_logs": true,
       "autorestart": true,
-      "restart_delay": 60
+      "restart_delay": 180000
     }
   ]
 }
