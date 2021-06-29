@@ -6,6 +6,7 @@ const { execFile } = require('child_process')
 const path = require('path')
 const write = require('./write')
 const { sendDD } = require('utils')
+const debounce = require('lodash/debounce')
 
 puppeteer.use(StealthPlugin())
 
@@ -157,13 +158,13 @@ async function commit() {
 
 async function run(cb, isUpdateInviteAddress) {
   const browser = await createBrowser()
-  const errorHandle = async function (error) {
+  const errorHandle = debounce(async function (error) {
     console.log(`<<< error!`, error)
     await browser.close()
     await write('-1', '-1')
     await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
     process.exit(error)
-  }
+  }, 1000)
   process.on('unhandledRejection', errorHandle)
   process.on('uncaughtException', errorHandle)
   return cb(browser, jsqpro.url, isUpdateInviteAddress)
