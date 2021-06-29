@@ -12,7 +12,7 @@
 
 
 
-#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=TOhMdEMWnudY)
+#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=G2La9trK6EMY)
 
 
 
@@ -21,6 +21,6 @@
 
 | 06-27(日) | 06-28(一) | 06-29(二) | 06-30(三) | 07-01(四) | 07-02(五) | 07-03(六) |
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
-|    🟢     |    🟢     |    🟢     |           |           |           |           |
+|    🟢     |    🟢     |    🟢     |    🟢     |           |           |           |
 
 <!-- @protocol:jsqpro:end -->
