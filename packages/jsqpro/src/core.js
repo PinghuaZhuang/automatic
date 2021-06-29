@@ -48,10 +48,12 @@ async function signIn(page) {
   }
   await signHandle.click()
   console.log(`>>> 签到成功.`)
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(2000)
+  await page.click('.confirm')
   await page.reload({
     waitUntil: 'networkidle2'
   })
+  await page.waitForTimeout(4000)
   return await getPreSignInTime(page)
 }
 
@@ -159,7 +161,7 @@ async function run(cb, isUpdateInviteAddress) {
     console.log(`<<< error!`, error)
     await browser.close()
     await write('-1', '-1')
-    await sendDD(process.env.TOKEN, `jsqpro error: ${error}`)
+    await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
     process.exit(error)
   }
   process.on('unhandledRejection', errorHandle)

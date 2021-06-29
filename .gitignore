@@ -21,6 +21,7 @@ yarn-error.log*
 *.sw?
 *.log
 *.bak
+*.bak.js
 
 .eslintcache
 lib

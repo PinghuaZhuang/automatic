@@ -8,10 +8,7 @@
       "watch": false,
       "merge_logs": true,
       "autorestart": true,
-      "restart_delay": 60,
-      "env": {
-        "TOKEN": "aa82b7edefc02392e4d078725a4837f1560d6b66eb80ce18b0fc158e89ce54eb"
-      }
+      "restart_delay": 60
     }
   ]
 }
