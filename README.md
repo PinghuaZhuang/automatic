@@ -12,7 +12,7 @@
 
 
 
-#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=YHxXmTG8RtmA)
+#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=Y0oZsFkFKpAW)
 
 
 
