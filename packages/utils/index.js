@@ -35,8 +35,17 @@ async function sendDD(token, content, times = { groups: { times: '' } }) {
     .catch(error => console.log('<<< 发送消息失败.', error))
 }
 
+function killByPid(pid){
+  if (/^win/.test(process.platform)) {
+      child_process.spawn("taskkill", ["/PID", pid, "/T", "/F"])
+  } else {
+      process.kill(-pid, 'SIGTERM')
+  }
+}
+
 module.exports = {
   sleep,
   resolve,
   sendDD,
+  killByPid,
 }

@@ -5,7 +5,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const { execFile } = require('child_process')
 const path = require('path')
 const write = require('./write')
-const { sendDD } = require('utils')
+const { sendDD, killByPid } = require('utils')
 const debounce = require('lodash/debounce')
 
 puppeteer.use(StealthPlugin())
@@ -146,10 +146,11 @@ async function createNewPage(browser) {
 }
 
 async function commit() {
-  return await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
+  const p = await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
     windowsHide: true,
   }, function (error) {
     if (error) {
+      killByPid(p.kid)
       throw error
     }
     console.log('>>> 提交代码.')
