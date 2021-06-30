@@ -1,5 +1,6 @@
 const path = require('path')
 const fetch = require('node-fetch')
+const { spawn } = require('child_process')
 
 function sleep(delay) {
   return new Promise(resolve => setTimeout(resolve, delay * 1000))
@@ -37,7 +38,7 @@ async function sendDD(token, content, times = { groups: { times: '' } }) {
 
 function killByPid(pid){
   if (/^win/.test(process.platform)) {
-      child_process.spawn("taskkill", ["/PID", pid, "/T", "/F"])
+      spawn("taskkill", ["/PID", pid, "/T", "/F"])
   } else {
       process.kill(-pid, 'SIGTERM')
   }
