@@ -6,9 +6,21 @@
 
 ## 🎯 JSQPRO
 
-- [x] **SSR**
+<details>
+  <summary><a href="https://jsqpro.link/doc/#/">支持多种客户端</a></summary>
 
-- [x] **V2RayN**
+  - **SSR**
+  - **SSD**
+  - **Clash**
+  - **Surge**
+  - **V2RayN**
+  - **Kitsunebi**
+  - **Surfboard**
+  - **Quantumult**
+  - **QuantumultX**
+  - **Shadowrocket**
+</details>
+
 
 
 
