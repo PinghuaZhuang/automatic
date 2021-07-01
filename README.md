@@ -24,7 +24,7 @@
 
 
 
-#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=KYySbpGqk8rP)
+#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=CCfUgLwdhoAC)
 
 
 
