@@ -24,15 +24,15 @@
 
 
 
-#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=3819z9CYxYIO)
+#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=DRXmuh7QThE8)
 
 
 
 <!-- @protocol:jsqpro:start -->
-<!-- checked:2021-07-01T00:02:01 -->
+<!-- checked:2021-07-01T00:02:01;2021-07-02T00:41:22 -->
 
 | 06-27(日) | 06-28(一) | 06-29(二) | 06-30(三) | 07-01(四) | 07-02(五) | 07-03(六) |
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
-|           |           |           |           |    🟢     |           |           |
+|           |           |           |           |    🟢     |    🟢     |           |
 
 <!-- @protocol:jsqpro:end -->
