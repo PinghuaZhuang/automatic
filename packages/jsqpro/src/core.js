@@ -165,7 +165,7 @@ async function run(cb, isUpdateInviteAddress) {
     await write('-1', '-1')
     await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
     process.exit(error)
-  }, 1000)
+  }, 1000 * 10)
   process.on('unhandledRejection', errorHandle)
   process.on('uncaughtException', errorHandle)
   return cb(browser, jsqpro.url, isUpdateInviteAddress)

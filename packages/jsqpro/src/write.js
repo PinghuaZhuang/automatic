@@ -25,7 +25,7 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
         times = times.groups.times.replace(/;$/, '').split(';')
       }
       times = [...new Set([...times, moment(signInTime).format(DATE)])].filter(o => moment(o).format() !== 'Invalid date')
-      console.log(`>>> times:`, times)
+      console.log(`>>> times:`, times, signInTime)
       if (signInTime === '-1' && !times.includes(today)) {
         console.log(`<<< 签到失败!`)
         jsqpro.content = Editor.replaceCheck(jsqpro.content, today, true)
