@@ -27,3 +27,4 @@ yarn-error.log*
 lib
 typings
 bin/jsqpro.bat
+/test.js

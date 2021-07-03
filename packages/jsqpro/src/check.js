@@ -28,7 +28,7 @@ module.exports = async (browser, url) => {
   info = await signInAndGetUrl(page)
 
   await write(info.signInTime, info.inviteAddress)
-  await commit()
+  await commit(nfo.signInTime)
 
   await page.waitForTimeout(2000)
   await exit('done. ', browser)
