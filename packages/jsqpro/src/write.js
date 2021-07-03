@@ -20,6 +20,7 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
     if (times) {
       // 每月1日重置
       if (moment().date(1).format(moment.HTML5_FMT.DATE) === moment().format(moment.HTML5_FMT.DATE)) {
+        await fs.writeFileSync(path.resolve(__dirname, `../log/${moment().month()}.txt`), times.join(';\n'), options)
         times = []
       } else {
         times = times.groups.times.replace(/;$/, '').split(';')

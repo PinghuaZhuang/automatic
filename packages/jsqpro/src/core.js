@@ -7,6 +7,7 @@ const path = require('path')
 const write = require('./write')
 const { sendDD, killByPid } = require('utils')
 const debounce = require('lodash/debounce')
+const moment = require('moment')
 
 puppeteer.use(StealthPlugin())
 
@@ -145,7 +146,8 @@ async function createNewPage(browser) {
   return page
 }
 
-async function commit() {
+async function commit(signInTime) {
+  if (moment(signInTime).isBefore(moment(), 'day')) return
   const p = await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
     windowsHide: true,
   }, function (error) {
