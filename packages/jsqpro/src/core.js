@@ -177,7 +177,7 @@ async function run(cb, isUpdateInviteAddress) {
 
   try {
     return cb(browser, jsqpro.url, isUpdateInviteAddress)
-  } finally {
+  } catch {
     return await browser.close()
   }
 }
