@@ -6,8 +6,8 @@ const { execFile } = require('child_process')
 const path = require('path')
 const write = require('./write')
 const { sendDD, killByPid } = require('utils')
-const once = require('lodash/once')
 const moment = require('moment')
+const debounce = require('lodash/debounce')
 
 puppeteer.use(StealthPlugin())
 
@@ -159,24 +159,27 @@ async function commit(signInTime) {
   })
 }
 
-const errorHandle = once(async function (error, browser) {
+const errorHandle = debounce(async function (error) {
   console.log(`<<< error!`, error)
-  await browser.close()
+  // await browser.close()
   await write('-1', '-1')
   await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
   // 没有退出进程
   // process.exit(error)
-  throw error
+  // throw error
 })
+
+process.on('unhandledRejection', errorHandle)
+process.on('uncaughtException', errorHandle)
 
 async function run(cb, isUpdateInviteAddress) {
   const browser = await createBrowser()
-  const errorHandleWrap = function (error) {
-    errorHandle(error, browser)
+
+  try {
+    return cb(browser, jsqpro.url, isUpdateInviteAddress)
+  } finally {
+    return await browser.close()
   }
-  process.on('unhandledRejection', errorHandleWrap)
-  process.on('uncaughtException', errorHandleWrap)
-  return cb(browser, jsqpro.url, isUpdateInviteAddress)
 }
 
 module.exports = {
