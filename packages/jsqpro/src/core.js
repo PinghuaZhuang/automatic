@@ -52,9 +52,6 @@ async function signIn(page) {
   console.log(`>>> 签到成功.`)
   await page.waitForTimeout(4000)
   await page.click('.confirm')
-  await page.reload({
-    waitUntil: 'networkidle2'
-  })
   await page.waitForTimeout(4000)
   return await getPreSignInTime(page)
 }
