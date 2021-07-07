@@ -39,12 +39,13 @@ async function inputAccount(page) {
 }
 
 async function signIn(page) {
-  // await page.waitForTimeout(3000)
+  await page.waitForTimeout(5000)
   const signHandle = await page.click('.i-button.button-check')
+  if (signHandle == null) return console.log('<<< get check btn error.')
   const signInTxt = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, signHandle)
-  if (signInTxt !== '签到') {
+  if (signInTxt === '不能签到') {
     console.log(`>>> 已经签到了.`, signInTxt)
     return await getPreSignInTime(page)
   }
@@ -68,7 +69,7 @@ async function getPreSignInTime(page) {
 async function getInviteAddress(page) {
   console.log(`>>> 跳转到推广返利.`)
   await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(4000)
 
   // 没有使用重置链接不会变
   console.log(`>>> 重置邀请链接.`)
@@ -89,8 +90,9 @@ async function getInviteAddress(page) {
 
 async function signInAndGetUrl(page) {
   const signInTime = await signIn(page)
+  await page.waitForTimeout(5000)
   const inviteAddress = await getInviteAddress(page)
-  return { signInTime: signInTime.trim(), inviteAddress }
+  return { signInTime: signInTime && signInTime.trim(), inviteAddress }
 }
 
 async function updateInviteAddress(page) {
@@ -114,7 +116,7 @@ async function createBrowser() {
   console.log(`===================================================================================`)
   console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
-    // headless: false,
+    headless: false,
     args: [
       // ...['--no-sandbox', '--disable-setuid-sandbox']
       // '--headless',
@@ -174,8 +176,10 @@ async function run(cb, isUpdateInviteAddress) {
 
   try {
     return cb(browser, jsqpro.url, isUpdateInviteAddress)
-  } catch {
-    return await browser.close()
+  } catch(e) {
+    console.log('<<< error. brower close.')
+    await browser.close()
+    throw e
   }
 }
 
