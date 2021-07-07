@@ -45,14 +45,14 @@ async function signIn(page) {
     return ele && ele.innerText.trim()
   }, signHandle)
   if (signInTxt !== '签到') {
-    console.log(`>>> 已经签到了.`)
+    console.log(`>>> 已经签到了.`, signInTxt)
     return await getPreSignInTime(page)
   }
   await signHandle.click()
   console.log(`>>> 签到成功.`)
   await page.waitForTimeout(4000)
   await page.click('.confirm')
-  await page.waitForTimeout(4000)
+  await page.waitForTimeout(5000)
   return await getPreSignInTime(page)
 }
 
