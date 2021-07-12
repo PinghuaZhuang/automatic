@@ -11,7 +11,7 @@ function resolve(url) {
 }
 
 async function sendDD(token, content, times = { groups: { times: '' } }) {
-  console.log('>>> 发送钉钉消息.')
+  console.log('>>>>>> 发送钉钉消息.')
   const raw = JSON.stringify({
     'msgtype': 'markdown',
     'markdown': {
@@ -32,7 +32,7 @@ async function sendDD(token, content, times = { groups: { times: '' } }) {
   }
   await fetch(`https://oapi.dingtalk.com/robot/send?access_token=${token}`, requestOptions)
     .then(response => response.text())
-    .then(result => console.log(`>>> 发送消息成功.`, result))
+    .then(result => console.log(`>>>>>> 发送消息成功.`, result))
     .catch(error => console.log('<<< 发送消息失败.', error))
 }
 
