@@ -12,7 +12,7 @@ const debounce = require('lodash/debounce')
 puppeteer.use(StealthPlugin())
 
 async function assertLogin(page) {
-  console.log(`>>>>>> 判断是否已经登录.`)
+  console.log(`>>> 判断是否已经登录.`)
   const usernameHandle = await page.$('.user .info span')
   return page.evaluate((usernameEle) => {
     return usernameEle != null && usernameEle.innerText.trim() === jsqpro.username
@@ -22,35 +22,35 @@ async function assertLogin(page) {
 async function getCookies(page) {
   const cookies = await _getCookies(page)
   if (cookies.length <= 1) {
-    console.log('<<< cookies error! may be Access denied!')
+    console.log('<<<<<< cookies error! may be Access denied!')
     exit('Access denied!')
   }
 }
 
 async function inputAccount(page) {
-  console.log(`>>>>>> 输入账号信息.`)
+  console.log(`>>> 输入账号信息.`)
   await page.type('#email', jsqpro.email)
   await page.type('#passwd', jsqpro.password)
   await page.click('#login')
   await page.waitForTimeout(4000)
 
-  console.log(`>>>>>> 跳转到首页.`)
+  console.log(`>>> 跳转到首页.`)
   await page.click('.confirm')
 }
 
 async function signIn(page) {
   await page.waitForTimeout(5000)
   const signHandle = await page.$('.i-button.button-check')
-  if (signHandle == null) return console.log('<<< get check btn error.')
+  if (signHandle == null) return console.log('<<<<<< get check btn error.')
   const signInTxt = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, signHandle)
   if (signInTxt === '不能签到') {
-    console.log(`>>>>>> 已经签到了.`, signInTxt)
+    console.log(`>>> 已经签到了.`, signInTxt)
     return await getPreSignInTime(page)
   }
   await signHandle.click()
-  console.log(`>>>>>> 签到成功.`)
+  console.log(`>>> 签到成功.`)
   await page.waitForTimeout(4000)
   await page.click('.confirm')
   await page.waitForTimeout(5000)
@@ -62,17 +62,17 @@ async function getPreSignInTime(page) {
   const signInTime = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, preTxtHandle)
-  console.log(`>>>>>> 签到时间:`, signInTime)
+  console.log(`>>> 签到时间:`, signInTime)
   return signInTime || ''
 }
 
 async function getInviteAddress(page) {
-  console.log(`>>>>>> 跳转到推广返利.`)
+  console.log(`>>> 跳转到推广返利.`)
   await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
   await page.waitForTimeout(4000)
 
   // 没有使用重置链接不会变
-  console.log(`>>>>>> 重置邀请链接.`)
+  console.log(`>>> 重置邀请链接.`)
   const linkHandle = await page.$('#aff_link')
   // 刷新页面
   const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
@@ -84,7 +84,7 @@ async function getInviteAddress(page) {
   const linkHandle2 = await page.$('#aff_link')
   const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle2)
 
-  console.log(`>>>>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
+  console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
   return inviteAddress
 }
 
@@ -98,23 +98,23 @@ async function signInAndGetUrl(page) {
 async function updateInviteAddress(page) {
   const signInTime = await signIn(page)
 
-  console.log(`>>>>>> 跳转到推广返利.`)
+  console.log(`>>> 跳转到推广返利.`)
   await page.evaluate(() => document.querySelector('[href="/user/invite"]').click())
   await page.waitForTimeout(2000)
 
-  console.log(`>>>>>> 重置邀请链接.`)
+  console.log(`>>> 重置邀请链接.`)
   const linkHandle = await page.$('#aff_link')
   const inviteAddressPre = await page.evaluate(linkEle => linkEle.value, linkHandle)
   await page.click('#resetiv')
   const inviteAddress = await page.evaluate(linkEle => linkEle.value, linkHandle)
 
-  console.log(`>>>>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
+  console.log(`>>> 重置邀请链接成功. inviteAddress:`, inviteAddressPre, inviteAddress)
   return { signInTime: signInTime.trim(), inviteAddress }
 }
 
 async function createBrowser() {
   console.log(`===================================================================================`)
-  console.log(`>>>>>> 打开浏览器.`)
+  console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
     // headless: false,
     args: [
@@ -134,7 +134,7 @@ async function createBrowser() {
 }
 
 async function createNewPage(browser) {
-  console.log(`>>>>>> 打开新标签.`)
+  console.log(`>>> 打开新标签.`)
   const page = await browser.newPage({
     waitUntil: 'networkidle2'
   })
@@ -154,12 +154,12 @@ async function commit(signInTime) {
       killByPid(p.kid)
       throw error
     }
-    console.log('>>>>>> 提交代码.')
+    console.log('>>> 提交代码.')
   })
 }
 
 const errorHandle = debounce(async function (error) {
-  console.log(`<<< error!`, error)
+  console.log(`<<<<<< error!`, error)
   // await browser.close()
   await write('-1', '-1')
   await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
@@ -177,7 +177,7 @@ async function run(cb, isUpdateInviteAddress) {
   try {
     return cb(browser, jsqpro.url, isUpdateInviteAddress)
   } catch(e) {
-    console.log('<<< error. brower close.')
+    console.log('<<<<<< error. brower close.')
     await browser.close()
     throw e
   }

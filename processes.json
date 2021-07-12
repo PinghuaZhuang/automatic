@@ -4,7 +4,7 @@
       "name": "jsqpro",
       "script": "packages/jsqpro/schedule.js",
       "log_date_format": "YYYY-MM-DD HH:mm:ss",
-      "max_restarts": 1,
+      "max_restarts": 5,
       "watch": false,
       "merge_logs": true,
       "autorestart": true,

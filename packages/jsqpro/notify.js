@@ -43,9 +43,9 @@ async function sendEmail() {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log('<<< 发送失败！邮箱是否正确', error);
+      console.log('<<<<<< 发送失败！邮箱是否正确', error);
     } else {
-      console.log('>>>>>> 发送邮件成功. ');
+      console.log('>>> 发送邮件成功. ');
     }
   })
 }

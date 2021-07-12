@@ -5,7 +5,7 @@ const moment = require('moment')
 const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
 
 module.exports = async function job(signInTime = '2021-06-26', inviteAddress = 'https://registered.jsqpro.store/auth/register') {
-  console.log(`>>>>>> 更新 README.md.`)
+  console.log(`>>> 更新 README.md.`)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
     encoding: 'utf8',
@@ -26,11 +26,11 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
         times = times.groups.times.replace(/;$/, '').split(';')
       }
       times = [...new Set([...times, moment(signInTime).format(DATE)])].filter(o => moment(o).format() !== 'Invalid date')
-      console.log(`>>>>>> times:`, times, signInTime)
+      console.log(`>>> times:`, times, signInTime)
       if (signInTime === '-1' && !times.includes(today)) {
-        console.log(`<<< 签到失败!`)
+        console.log(`<<<<<< 签到失败!`)
         jsqpro.content = Editor.replaceCheck(jsqpro.content, today, true)
-        console.log(`>>>>>> check table:`, jsqpro.content)
+        console.log(`>>> check table:`, jsqpro.content)
         return
       }
       jsqpro.content = jsqpro.content.replace(/\<\!-- checked:([^\s]*) --\>/, `<!-- checked:${times.join(';')} -->`)
@@ -45,7 +45,7 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
       `[https://registered.jsqpro.store/auth/register](${inviteAddress})`
     )
 
-    console.log(`>>>>>> check table:`, jsqpro.content)
+    console.log(`>>> check table:`, jsqpro.content)
     await fs.writeFileSync(filePath, Editor.replaceSection(content, jsqpro), options)
   }
 }
