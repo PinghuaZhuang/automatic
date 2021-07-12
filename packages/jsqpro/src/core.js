@@ -40,7 +40,7 @@ async function inputAccount(page) {
 
 async function signIn(page) {
   await page.waitForTimeout(5000)
-  const signHandle = await page.click('.i-button.button-check')
+  const signHandle = await page.$('.i-button.button-check')
   if (signHandle == null) return console.log('<<< get check btn error.')
   const signInTxt = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
