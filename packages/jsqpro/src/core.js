@@ -28,7 +28,7 @@ async function getCookies(page) {
 }
 
 async function inputAccount(page) {
-  console.log(`>>> 输入账号信息.`)
+  console.log(`>>> 输入账号信息.`, jsqpro.email, process.env.JSQPRO_PA)
   await page.type('#email', jsqpro.email)
   await page.waitForTimeout(1000)
   await page.type('#passwd', jsqpro.password)
@@ -117,7 +117,7 @@ async function createBrowser() {
   console.log(`===================================================================================`)
   console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
-    headless: false,
+    // headless: false,
     args: [
       // ...['--no-sandbox', '--disable-setuid-sandbox']
       // '--headless',
