@@ -28,3 +28,5 @@ lib
 typings
 bin/jsqpro.bat
 /test.js
+var.js
+packages/jsqpro/src/var.js
