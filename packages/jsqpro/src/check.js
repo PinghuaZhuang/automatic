@@ -8,6 +8,7 @@ const {
   signInAndGetUrl,
   commit,
 } = require('./core')
+const { sendEmail } = require('./notify')
 
 module.exports = async (browser, url) => {
   const page = await createNewPage(browser)
@@ -31,6 +32,7 @@ module.exports = async (browser, url) => {
   await commit(info.signInTime)
 
   await page.waitForTimeout(2000)
+  await sendEmail()
   await exit('done. ', browser)
   return info
 }

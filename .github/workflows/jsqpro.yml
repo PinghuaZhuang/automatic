@@ -32,9 +32,10 @@ jobs:
 
     - run: yarn global add pm2
     - run: yarn
-    # - run: pm2 delete 0
-    # - run: yarn run start
-    - run: yarn run build
+    - run: pm2 delete 0
+    - run: yarn run start
+    - run: pm2 run log
+    # - run: yarn run build
     # - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS" --dd="$JSQPRO_DD_TOKEN"
       env:
         JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}

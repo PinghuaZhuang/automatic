@@ -5,7 +5,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const { execFile } = require('child_process')
 const path = require('path')
 const write = require('./write')
-const { sendDD, killByPid } = require('utils')
+const { sendDD/* , killByPid */ } = require('utils')
 const moment = require('moment')
 const debounce = require('lodash/debounce')
 
@@ -152,7 +152,7 @@ async function commit(signInTime) {
     windowsHide: true,
   }, function (error) {
     if (error) {
-      killByPid(p.kid)
+      // killByPid(p.kid)
       throw error
     }
     console.log('>>> 提交代码.')
