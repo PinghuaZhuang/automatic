@@ -2,10 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
-const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
+// const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
+const DATE = 'YYYY-MM-DDTHH:mm:ss'
 
 module.exports = async function job(signInTime = '2021-06-26', inviteAddress = 'https://registered.jsqpro.store/auth/register') {
-  console.log(`>>> 更新 README.md.`)
+  console.log(`>>> 更新 README.md.`, signInTime)
   const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
     encoding: 'utf8',
@@ -19,14 +20,16 @@ module.exports = async function job(signInTime = '2021-06-26', inviteAddress = '
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
       // 每月1日重置
-      if (moment().date(1).format(moment.HTML5_FMT.DATE) === moment().format(moment.HTML5_FMT.DATE)) {
+      if (moment().date(1).format(DATE) === moment().format(DATE)) {
         await fs.writeFileSync(path.resolve(__dirname, `../log/${moment().month()}.txt`), times.join(';\n'), options)
         times = []
       } else {
         times = times.groups.times.replace(/;$/, '').split(';')
       }
-      times = [...new Set([...times, moment(signInTime).format(DATE)])].filter(o => moment(o).format() !== 'Invalid date')
-      console.log(`>>> times:`, times, signInTime)
+      try {
+        times = [...new Set([...times, moment(signInTime).format(DATE)])].filter(o => moment(o).format() !== 'Invalid date')
+        console.log(`>>> times:`, times, signInTime)
+      } catch (error) {}
       if (signInTime === '-1' && !times.includes(today)) {
         console.log(`<<<<<< 签到失败!`)
         jsqpro.content = Editor.replaceCheck(jsqpro.content, today, true)
