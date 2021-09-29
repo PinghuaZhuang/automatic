@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 
-async function logHtml() {
+async function logHtml(page) {
   const htmlHandle = await page.$('html')
   const html = await page.evaluate(html => html.innerHTML, htmlHandle);
   await htmlHandle.dispose()
