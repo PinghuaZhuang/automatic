@@ -28,11 +28,11 @@ module.exports = async function job(signInTime = '2021-01-01', inviteAddress = '
       } else {
         times = times.groups.times.replace(/;$/, '').split(';')
       }
-      // 去重
-      times = [...new Set([...times])]
       if (signInTime !== '-1') {
         times.push(moment(signInTime).format(DATE))
       }
+      // 去重
+      times = [...new Set([...times])]
       times = times.filter(o => moment(o).format() !== 'Invalid date')
       console.log(`>>> times:`, times, signInTime)
       if (signInTime === '-1' && !times.includes(today)) {

@@ -49,7 +49,7 @@ const Editor = {
     )
   },
   replaceCheck(content, val, isError) {
-    const no = this.subDays(moment(val), moment().weekday(0)) + 1
+    const no = this.subDays(moment(val), moment().weekday(0))/*  + 1 */
     const reg = new RegExp(`--:\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
     return content
       .replace(reg, `--: \|\n$1|    ${isError ? '🔴' : '🟢'}     `)
