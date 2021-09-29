@@ -30,12 +30,10 @@ jobs:
         JSQPRO_PA: ${{secrets.TOKEN}}
     # - uses: mskelton/setup-yarn@v1
 
-    - run: |
-        yarn global add pm2
-        pm2 -v
-        yarn
-        pm2 delete all
-        yarn start
+    - run: yarn global add pm2
+    - run: yarn
+    - run: pm2 delete all
+    - run: yarn start
       env:
         JSQPRO_PA: ${{secrets.TOKEN}}
 
