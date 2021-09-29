@@ -49,7 +49,6 @@ const Editor = {
     )
   },
   replaceCheck(content, val, isError) {
-    console.log('00000000000', content, val)
     const no = this.subDays(moment(val), moment().weekday(0)) + 1
     const reg = new RegExp(`--:\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
     return content
