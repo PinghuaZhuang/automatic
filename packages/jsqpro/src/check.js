@@ -1,4 +1,4 @@
-const { exit } = require('utils/puppeteer')
+const { exit/* , logHtml */ } = require('utils/puppeteer')
 const write = require('./write')
 const {
   createNewPage,
@@ -8,6 +8,7 @@ const {
   signInAndGetUrl,
   commit,
 } = require('./core')
+const { sendEmail } = require('./notify')
 
 module.exports = async (browser, url) => {
   const page = await createNewPage(browser)
@@ -21,15 +22,17 @@ module.exports = async (browser, url) => {
   }
 
   await page.waitForTimeout(10000)
+  // await logHtml(page)
   await getCookies(page)
 
   await inputAccount(page)
   info = await signInAndGetUrl(page)
 
   await write(info.signInTime, info.inviteAddress)
-  await commit(info.signInTime)
+  // await commit(info.signInTime)
 
   await page.waitForTimeout(2000)
+  await sendEmail()
   await exit('done. ', browser)
   return info
 }

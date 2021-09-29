@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 
-async function logHtml() {
+async function logHtml(page) {
   const htmlHandle = await page.$('html')
   const html = await page.evaluate(html => html.innerHTML, htmlHandle);
   await htmlHandle.dispose()
@@ -29,6 +29,7 @@ async function exit(message, browser) {
   console.log(`>>> exit.`, message)
   if (typeof browser === 'object') {
     await browser.close()
+    throw new Error(`>>> exit. ${message}`)
     // return exec('exit')
   }
   // process.exit(message || -1)

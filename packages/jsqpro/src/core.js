@@ -5,7 +5,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const { execFile } = require('child_process')
 const path = require('path')
 const write = require('./write')
-const { sendDD, killByPid } = require('utils')
+const { sendDD/* , killByPid */ } = require('utils')
 const moment = require('moment')
 const debounce = require('lodash/debounce')
 
@@ -114,7 +114,7 @@ async function updateInviteAddress(page) {
 }
 
 async function createBrowser() {
-  console.log(`===================================================================================`)
+  console.log(`\n===================================================================================`)
   console.log(`>>> 打开浏览器.`)
   const browser = await puppeteer.launch({
     // headless: false,
@@ -148,11 +148,11 @@ async function createNewPage(browser) {
 
 async function commit(signInTime) {
   if (moment(signInTime).isBefore(moment(), 'day')) return
-  const p = await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
+  const p = await execFile(path.resolve(__dirname, '../../../bin/commit.sh'), {
     windowsHide: true,
   }, function (error) {
     if (error) {
-      killByPid(p.kid)
+      // killByPid(p.kid)
       throw error
     }
     console.log('>>> 提交代码.')
@@ -165,7 +165,7 @@ const errorHandle = debounce(async function (error) {
   await write('-1', '-1')
   await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
   // 没有退出进程
-  // process.exit(error)
+  process.exit(error)
   // throw error
 })
 
