@@ -163,7 +163,7 @@ const errorHandle = debounce(async function (error) {
   console.log(`<<<<<< error!`, error)
   // await browser.close()
   await write('-1', '-1')
-  await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
+  await sendDD(JSQPRO_DD_TOKEN, `jsqpro error: ${error}`)
   // 没有退出进程
   process.exit(error)
   // throw error
