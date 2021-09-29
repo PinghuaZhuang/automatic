@@ -9,6 +9,8 @@ const { sendDD/* , killByPid */ } = require('utils')
 const moment = require('moment')
 const debounce = require('lodash/debounce')
 
+moment.locale('zh-cn')
+
 puppeteer.use(StealthPlugin())
 
 async function assertLogin(page) {

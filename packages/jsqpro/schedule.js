@@ -3,6 +3,8 @@ const { run } = require('./src/core')
 const check = require('./src/check')
 const moment = require('moment')
 
+moment.locale('zh-cn')
+
 async function job() {
   const { signInTime } = await run(check)
   const delay = moment(signInTime).add(1, 'days') - moment()/*  + 1000 * 60 * 30 */

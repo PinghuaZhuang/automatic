@@ -1,5 +1,7 @@
 const moment = require('moment')
 
+moment.locale('zh-cn')
+
 const Editor = {
   regs: {
     // /\<\!--\s*@protocol:(?<section>.*):start\s*--\>(?<content>[\s\S]*?)\<\!--\s*@protocol:\k<section>:end\s*--\>/g
