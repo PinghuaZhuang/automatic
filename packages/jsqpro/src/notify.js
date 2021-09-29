@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
 const marked = require('marked')
-const { sendDD } = require('utils')
+const { sendDD, timesReg } = require('utils')
 
 const args = {}
 process.argv.slice(2).forEach(k => {
@@ -28,7 +28,7 @@ async function sendEmail() {
     encoding: 'utf8',
   }
   let content = await fs.readFileSync(filePath, options)
-  const times = /\<\!-- checked:(?<times>[^\s]*) --\>/.exec(content)
+  const times = timesReg.exec(content)
   const { jsqpro } = Editor.structureObj(content)
 
   const mailOptions = {

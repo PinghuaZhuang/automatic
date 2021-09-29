@@ -49,4 +49,5 @@ module.exports = {
   resolve,
   sendDD,
   killByPid,
+  timesReg: /\<\!-- checked:(?<times>.*) --\>/
 }

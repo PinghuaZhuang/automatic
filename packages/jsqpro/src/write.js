@@ -2,14 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
+const { timesReg } = require('utils')
 // const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
 const DATE = 'YYYY-MM-DD HH:mm:ss'
 
 moment.locale('zh-cn')
-
-// const timesReg = /\<\!-- checked:(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2};)* --\>/
-const timesReg = /\<\!-- checked:(?<times>.*) --\>/
-
 
 module.exports = async function job(signInTime = '2021-01-01', inviteAddress = 'https://registered.jsqpro.store/auth/register') {
   console.log(`>>> 更新 README.md.`, signInTime)
