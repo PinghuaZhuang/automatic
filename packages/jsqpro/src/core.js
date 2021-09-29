@@ -166,7 +166,7 @@ const errorHandle = debounce(async function (error) {
   await sendDD(process.env.DD_WEBHOOK_TOKEN, `jsqpro error: ${error}`)
   // 没有退出进程
   // process.exit(error)
-  // throw error
+  throw error
 })
 
 process.on('unhandledRejection', errorHandle)
