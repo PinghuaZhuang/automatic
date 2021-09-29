@@ -23,7 +23,7 @@ async function getCookies(page) {
   const cookies = await _getCookies(page)
   if (cookies.length <= 1) {
     console.log('<<<<<< cookies error! may be Access denied!')
-    exit('Access denied!')
+    // exit('Access denied!')
   }
 }
 

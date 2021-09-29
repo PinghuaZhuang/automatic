@@ -2,8 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
-// const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
+// const DATE = zhChMoment.HTML5_FMT.DATETIME_LOCAL_SECONDS
 const DATE = 'YYYY-MM-DDTHH:mm:ss'
+const zhChMoment = moment.locale('zh-cn')
 
 module.exports = async function job(signInTime = '2021-01-01', inviteAddress = 'https://registered.jsqpro.store/auth/register') {
   console.log(`>>> 更新 README.md.`, signInTime)
@@ -13,15 +14,15 @@ module.exports = async function job(signInTime = '2021-01-01', inviteAddress = '
   }
   let content = await fs.readFileSync(filePath, options)
   const { jsqpro } = Editor.structureObj(content)
-  const today = moment().format(DATE)
+  const today = zhChMoment().format(DATE)
 
   if (jsqpro) {
     let times = /\<\!-- checked:(?<times>[^\s]*) --\>/.exec(content)
     jsqpro.content = Editor.replaceWeek(Editor.signInTxt())
     if (times) {
       // 每月1日重置
-      if (moment().date(1).format(DATE) === moment().format(DATE)) {
-        await fs.writeFileSync(path.resolve(__dirname, `../log/${moment().month()}.txt`), times.join(';\n'), options)
+      if (zhChMoment().date(1).format(DATE) === zhChMoment().format(DATE)) {
+        await fs.writeFileSync(path.resolve(__dirname, `../log/${zhChMoment().month()}.txt`), times.join(';\n'), options)
         times = []
       } else {
         times = times.groups.times.replace(/;$/, '').split(';')
@@ -29,9 +30,9 @@ module.exports = async function job(signInTime = '2021-01-01', inviteAddress = '
       // 去重
       times = [...new Set([...times])]
       if (signInTime !== '-1') {
-        times.push(moment(signInTime).format(DATE))
+        times.push(zhChMoment(signInTime).format(DATE))
       }
-      times = times.filter(o => moment(o).format() !== 'Invalid date')
+      times = times.filter(o => zhChMoment(o).format() !== 'Invalid date')
       console.log(`>>> times:`, times, signInTime)
       if (signInTime === '-1' && !times.includes(today)) {
         console.log(`<<<<<< 签到失败!`)
