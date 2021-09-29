@@ -5,7 +5,7 @@ on:
 
 jobs:
   my_first_job:
-    name: step-1 automatic
+    name: jsqpro automatic
     runs-on: ubuntu-latest
     steps:
     - uses: actions/cache@v2
@@ -32,10 +32,13 @@ jobs:
 
     - run: yarn global add pm2
     - run: yarn
-    - run: pm2 delete all
-    - run: yarn start
+    # - run: pm2 delete 0
+    - run: yarn run start
+    - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS" --dd="$JSQPRO_DD_TOKEN"
       env:
+        JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}
         JSQPRO_PA: ${{secrets.TOKEN}}
+        JSQPRO_DD_TOKEN: ${{secrets.DD_TOKEN}}
 
   # notify:
   #   name: step-2 Send message
