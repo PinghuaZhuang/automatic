@@ -2,7 +2,7 @@ name: jsqpro automatic
 on:
   workflow_dispatch:
   schedule:
-    - cron: '2-3 * * * *'
+    - cron: '* 23-24 * * *'
 
 jobs:
   my_first_job:
@@ -42,7 +42,6 @@ jobs:
     - run: |
         git config --global user.email "zphua2016@gmail.com"
         git config --global user.name "Pinghua Zhuang"
-        git reset --hard origin/master
         git add --all
         git commit -m Check-in
         git push
