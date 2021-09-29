@@ -148,7 +148,7 @@ async function createNewPage(browser) {
 
 async function commit(signInTime) {
   if (moment(signInTime).isBefore(moment(), 'day')) return
-  const p = await execFile(path.resolve(__dirname, '../../../bin/commit.bat'), {
+  const p = await execFile(path.resolve(__dirname, '../../../bin/commit.sh'), {
     windowsHide: true,
   }, function (error) {
     if (error) {
