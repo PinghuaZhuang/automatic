@@ -24,7 +24,7 @@
 
 
 
-#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=J92Jl0W3kDSJ)
+#### 🔗 邀请链接:  [https://registered.jsqpro.store/auth/register](https://registered.jsqpro.store/auth/register?code=cDOQj5qAJ1tt)
 
 
 
@@ -33,6 +33,6 @@
 
 | 09-27(一) | 09-28(二) | 09-29(三) | 09-30(四) | 10-01(五) | 10-02(六) | 10-03(日) |
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
-|    🟢     |    🟢     |           |           |           |           |           |
+|    🟢     |           |    🟢     |           |           |           |           |
 
 <!-- @protocol:jsqpro:end -->
