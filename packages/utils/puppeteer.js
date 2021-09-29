@@ -29,6 +29,7 @@ async function exit(message, browser) {
   console.log(`>>> exit.`, message)
   if (typeof browser === 'object') {
     await browser.close()
+    throw new Error(`>>> exit. ${message}`)
     // return exec('exit')
   }
   // process.exit(message || -1)

@@ -1,4 +1,4 @@
-const { exit } = require('utils/puppeteer')
+const { exit, logHtml } = require('utils/puppeteer')
 const write = require('./write')
 const {
   createNewPage,
@@ -21,6 +21,7 @@ module.exports = async (browser, url) => {
   }
 
   await page.waitForTimeout(10000)
+  await logHtml(page)
   await getCookies(page)
 
   await inputAccount(page)
