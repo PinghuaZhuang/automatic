@@ -64,7 +64,7 @@ async function getPreSignInTime(page) {
     return ele && ele.innerText.trim()
   }, preTxtHandle)
   console.log(`>>> 签到时间:`, signInTime)
-  return signInTime || ''
+  return signInTime || '2021-01-01'
 }
 
 async function getInviteAddress(page) {
