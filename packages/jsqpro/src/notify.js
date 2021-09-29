@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 })
 
 async function sendEmail() {
-  const filePath = path.resolve(__dirname, '../../README.md')
+  const filePath = path.resolve(__dirname, '../../../README.md')
   const options = {
     encoding: 'utf8',
   }
