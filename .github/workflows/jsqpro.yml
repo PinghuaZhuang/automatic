@@ -2,6 +2,8 @@ name: jsqpro automatic
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron: '0 23 * * *'
 
 jobs:
   my_first_job:
@@ -27,20 +29,22 @@ jobs:
 
     - uses: allenevans/set-env@v2.0.0
       with:
-        JSQPRO_PA: ${{secrets.TOKEN}}
-    # - uses: mskelton/setup-yarn@v1
-
-    - run: yarn global add pm2
-    - run: yarn
-    - run: pm2 delete 0
-    - run: yarn run start
-    - run: pm2 run log
-    # - run: yarn run build
-    # - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS" --dd="$JSQPRO_DD_TOKEN"
-      env:
         JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}
         JSQPRO_PA: ${{secrets.TOKEN}}
         JSQPRO_DD_TOKEN: ${{secrets.DD_TOKEN}}
+    # - uses: mskelton/setup-yarn@v1
+
+    # - run: yarn global add pm2
+    - run: yarn
+    # - run: pm2 delete 0
+    # - run: yarn run start
+    # - run: pm2 run log
+    - run: yarn run build
+    # - run: yarn run notify:jsqpro --pass="$JSQPRO_EMAIL_PASS" --dd="$JSQPRO_DD_TOKEN"
+      # env:
+      #   JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}
+      #   JSQPRO_PA: ${{secrets.TOKEN}}
+      #   JSQPRO_DD_TOKEN: ${{secrets.DD_TOKEN}}
 
   # notify:
   #   name: step-2 Send message

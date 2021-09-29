@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: '995382997@qq.com',
     // 这里密码不是qq密码，是你设置的smtp授权码
-    pass: args.pass,
+    pass: process.env.JSQPRO_EMAIL_PASS || args.pass,
   },
 })
 
@@ -39,7 +39,7 @@ async function sendEmail() {
     html: marked(`${times.groups.times}\n\n${jsqpro.content}`),
   }
 
-  sendDD(args.dd, jsqpro.content, times)
+  sendDD(process.env.JSQPRO_DD_TOKEN || args.dd, jsqpro.content, times)
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
