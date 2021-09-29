@@ -3,7 +3,7 @@ const path = require('path')
 const Editor = require('utils/Editor')
 const moment = require('moment')
 // const DATE = moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
-const DATE = 'YYYY-MM-DDTHH:mm:ss'
+const DATE = 'YYYY-MM-DD HH:mm:ss'
 
 moment.locale('zh-cn')
 
