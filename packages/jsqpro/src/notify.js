@@ -39,14 +39,18 @@ async function sendEmail() {
     html: marked(`${times.groups.times}\n\n${jsqpro.content}`),
   }
 
-  sendDD(process.env.JSQPRO_DD_TOKEN || args.dd, jsqpro.content, times)
+  await sendDD(process.env.JSQPRO_DD_TOKEN || args.dd, jsqpro.content, times)
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log('<<<<<< 发送失败！邮箱是否正确', error);
-    } else {
-      console.log('>>> 发送邮件成功. ');
-    }
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log('<<<<<< 发送失败！邮箱是否正确', error);
+        reject()
+      } else {
+        console.log('>>> 发送邮件成功. ');
+        resolve()
+      }
+    })
   })
 }
 
