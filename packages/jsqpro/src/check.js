@@ -6,7 +6,7 @@ const {
   getCookies,
   inputAccount,
   signInAndGetUrl,
-  commit,
+  // commit,
 } = require('./core')
 const { sendEmail } = require('./notify')
 
@@ -18,7 +18,7 @@ module.exports = async (browser, url) => {
 
   if (await assertLogin(page)) {
     info = await signInAndGetUrl(page)
-    return exit(`已经登录!`)
+    return exit(`已经登录!`, browser)
   }
 
   await page.waitForTimeout(10000)
