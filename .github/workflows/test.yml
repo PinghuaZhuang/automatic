@@ -1,0 +1,22 @@
+name: test
+on:
+  schedule:
+    - cron: '2 * * * *'
+
+jobs:
+  my_first_job:
+    name: test name
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - uses: allenevans/set-env@v2.0.0
+      with:
+        JSQPRO_EMAIL_PASS: ${{secrets.EMAIL_PASS}}
+        JSQPRO_PA: ${{secrets.TOKEN}}
+        JSQPRO_DD_TOKEN: ${{secrets.DD_TOKEN}}
+
+    - run: npm -v
