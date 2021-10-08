@@ -51,7 +51,7 @@ async function signIn(page) {
   if (signInTxt === '不能签到') {
     console.log(`>>> 已经签到了.`, signInTxt)
     const signInTime = await getPreSignInTime(page)
-    exit(`已经签到了.`, signInTime)
+    // exit(`已经签到了.`, signInTime)
     return signInTime
   }
   await signHandle.click()

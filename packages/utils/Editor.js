@@ -49,14 +49,15 @@ const Editor = {
     )
   },
   replaceCheck(content, val, isError) {
-    const no = this.subDays(moment(val), moment().weekday(0))/*  + 1 */
+    const no = this.subDays(moment(moment(val).format('YYYY-MM-DD')), moment().weekday(0))/*  + 1 */
     const reg = new RegExp(`--:\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
-    console.log(`replaceCheck:`, content, val, no, 'end')
+    // console.log(`replaceCheck:`, content
+    //   .replace(reg, `--: \|\n$1|    ${isError ? '🔴' : '🟢'}     `), val, no, 'end')
     return content
       .replace(reg, `--: \|\n$1|    ${isError ? '🔴' : '🟢'}     `)
   },
   subDays(a, b) {
-    return Math.floor((a - b) / (1000 * 60 * 60 * 24))
+    return Math.ceil((a - b) / (1000 * 60 * 60 * 24))
   },
 }
 
