@@ -38,6 +38,9 @@ module.exports = async function job(signInTime = '2021-01-01', inviteAddress = '
       console.log(`>>> times:`, times, signInTime)
       if (signInTime === '-1' && !times.includes(today)) {
         console.log(`<<<<<< 签到失败!`)
+        times.forEach(time => {
+          jsqpro.content = Editor.replaceCheck(jsqpro.content, time)
+        })
         jsqpro.content = Editor.replaceCheck(jsqpro.content, today, true)
         console.log(`>>> check table:`, jsqpro.content)
         return
