@@ -51,6 +51,7 @@ const Editor = {
   replaceCheck(content, val, isError) {
     const no = this.subDays(moment(val), moment().weekday(0))/*  + 1 */
     const reg = new RegExp(`--:\\s\\|\\n((\\|[^\\|]*){${no}})(\\|[^\\|]*)`)
+    console.log(`replaceCheck:`, content, val, no, 'end')
     return content
       .replace(reg, `--: \|\n$1|    ${isError ? '🔴' : '🟢'}     `)
   },
