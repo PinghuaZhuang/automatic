@@ -67,7 +67,7 @@ async function getPreSignInTime(page) {
   const signInTime = await page.evaluate((ele) => {
     return ele && ele.innerText.trim()
   }, preTxtHandle)
-  console.log(`>>> 签到时间:`, signInTime)
+  console.log(`>>> 签到时间:`, signInTime, moment())
   return signInTime || '2021-01-01'
 }
 
