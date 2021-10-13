@@ -59,7 +59,7 @@ async function signIn(page) {
   await page.waitForTimeout(4000)
   await page.click('.confirm')
   await page.waitForTimeout(5000)
-  return await getPreSignInTime(page)
+  return /* await getPreSignInTime(page) */moment().format('YYYY-MM-DD HH:mm:ss')
 }
 
 async function getPreSignInTime(page) {
